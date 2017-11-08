@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GrpcServer.iml" filepath="$PROJECT_DIR$/.idea/modules/GrpcServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GrpcServer_main.iml" filepath="$PROJECT_DIR$/.idea/modules/GrpcServer_main.iml" group="GrpcServer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GrpcServer_test.iml" filepath="$PROJECT_DIR$/.idea/modules/GrpcServer_test.iml" group="GrpcServer" />
+    </modules>
+  </component>
+</project>
