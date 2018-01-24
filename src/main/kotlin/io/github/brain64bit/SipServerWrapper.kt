@@ -2,13 +2,11 @@ package io.github.brain64bit
 
 import io.grpc.Server
 import io.grpc.ServerBuilder
+import io.grpc.netty.NettyServerBuilder
 import io.grpc.stub.StreamObserver
-import mu.KLogging
 import mu.KotlinLogging
-import org.slf4j.LoggerFactory
 import sip_server.ActionGrpc
 import sip_server.SipServer
-import java.util.logging.Logger
 
 class SipServerWrapper {
     private var server: Server? = null
@@ -49,7 +47,7 @@ class SipServerWrapper {
     @Throws(InterruptedException::class)
     private fun start() {
         val port:Int = 50051;
-        server = ServerBuilder.forPort(port)
+        server = NettyServerBuilder.forPort(port)
                 .addService(ActionImpl())
                 .build()
                 .start()

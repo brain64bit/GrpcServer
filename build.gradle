@@ -8,16 +8,21 @@ apply plugin: 'com.google.protobuf'
 //inform intellij about generated code
 apply plugin: 'idea'
 apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.plugin-shadow'
+
+mainClassName = "io.github.brain64bit.SipServerWrapper"
 
 buildscript {
-    ext.kotlin_version = '1.1.4-3'
+    ext.kotlin_version = '1.2.0'
 
     repositories {
+        jcenter()
         mavenCentral()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.3'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.2'
     }
 }
 
@@ -27,7 +32,7 @@ repositories {
     mavenCentral()
 }
 
-def grpcVersion = '1.7.0' // CURRENT_GRPC_VERSION
+def grpcVersion = '1.9.0' // CURRENT_GRPC_VERSION
 
 dependencies {
     compile "com.google.api.grpc:proto-google-common-protos:0.1.22"
@@ -73,6 +78,15 @@ idea {
     }
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/generated/main/grpc'
+            srcDirs 'src/generated/main/java'
+        }
+    }
+}
+
 startScripts.enabled = false
 
 task sipServerWrapper(type: CreateStartScripts){
@@ -92,4 +106,17 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+jar {
+    manifest {
+        attributes (
+                'Main-Class': 'io.github.brain64bit.SipServerWrapperKt'
+        )
+    }
+
+}
+
+shadowJar {
+    mergeServiceFiles()
 }
